@@ -6,18 +6,41 @@ $ npm i @cubiles/nestjs-app-exception
 
 ## Example
 
+### Usage as nestjs filter
+
 ```ts
-// App.config.ts
-import { FromEnv } from '@cubiles/nestjs-config-utils';
-import { IsString, IsNumber } from 'class-validator';
+ app.useGlobalFilters(new AppExceptionFilter());
+```
 
-export class AppConfig {
-  @FromEnv('APP_ADDRESS')
-  @IsString()
-  readonly address: string = 'localhost';
+### Define AppException
 
-  @FromEnv('APP_PORT')
-  @IsNumber()
-  readonly port: number = 1234;
-}
+#### Create an AppException
+
+```ts
+const exception = AppExceptionBuilder.create()
+  .setScope('Database')
+  .setCode('P2302')
+  .setMessage('ErrorMessage')
+  .build();
+```
+
+#### Create an AppException and throw it
+
+```ts
+
+const exception = AppExceptionBuilder.create()
+  .setScope('Database')
+  .setCode('P2302')
+  .setMessage('ErrorMessage')
+  .throw();
+```
+
+#### Create an AppException with a another cause
+
+```ts
+const anotherExpception = AppExceptionBuilder.create()
+  .setScope('Account')
+  .setCode('P2302')
+  .setCause(exception)
+  .throw();
 ```
