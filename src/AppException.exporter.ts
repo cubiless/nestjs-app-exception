@@ -35,7 +35,7 @@ export class AppExceptionExporter {
       return {
         message: exception.message,
         code: exception.name,
-        params: { stack: exception.stack },
+        params: { exception },
       };
     }
 
