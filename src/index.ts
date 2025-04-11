@@ -5,4 +5,5 @@ export * from './AppException.builder';
 export * from './enums/AppException.level';
 export * from './exceptions/App.denied.exception';
 export * from './exceptions/App.internal.exception';
+export * from './exceptions/App.validation.exception';
 export * from './AppException';

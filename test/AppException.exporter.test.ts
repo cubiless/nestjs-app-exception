@@ -1,5 +1,4 @@
-import { AppExceptionBuilder } from '../src/AppException.builder';
-import { AppExceptionExporter } from '../src/AppException.exporter';
+import { AppExceptionBuilder, AppExceptionExporter } from '../src';
 
 describe('AppExceptionExporter', () => {
   it('an simple exception', async () => {

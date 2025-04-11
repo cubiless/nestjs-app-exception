@@ -40,4 +40,14 @@ export class AppExceptionExporter {
   export(): AppExceptionExport {
     return this.exportAppException(this.exception);
   }
+
+  exportCauseAppException() {
+    let exception: Error = this.exception;
+
+    while (exception instanceof AppException && exception.cause) {
+      exception = exception.cause;
+    }
+
+    return exception;
+  }
 }

@@ -4,12 +4,13 @@ import { AppExceptionLevel } from '../enums/AppException.level';
 export class AppInternalException extends AppException<
   Record<string, unknown>
 > {
-  constructor() {
+  constructor(cause?: Error) {
     super({
       scope: 'App',
       code: 'Internal',
       level: AppExceptionLevel.External,
       message: 'Internal Exception',
+      cause: cause,
     });
   }
 }

@@ -1,5 +1,4 @@
-import { AppExceptionBuilder } from '../src/AppException.builder';
-import { AppExceptionLevel } from '../src/enums/AppException.level';
+import { AppExceptionBuilder, AppExceptionLevel } from '../src';
 
 describe('AppExceptionBuilder', () => {
   it('an simple exception', async () => {
