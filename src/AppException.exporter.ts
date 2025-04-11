@@ -16,25 +16,30 @@ export class AppExceptionExporter {
   }
 
   private exportAppException(exception: Error): AppExceptionExport {
-    if (!(exception instanceof AppException)) {
-      return this.exportAppException(new AppInternalException());
+    if (exception instanceof AppException) {
+      if (
+        exception.level === AppExceptionLevel.Internal ||
+        (exception.level === AppExceptionLevel.External &&
+          this.level === AppExceptionLevel.External)
+      ) {
+        return {
+          code: `${exception.scope}/${exception.code}`,
+          message: exception.message,
+          params: exception.params ? exception.params : {},
+          cause: exception.cause
+            ? this.exportAppException(exception.cause)
+            : undefined,
+        };
+      }
+    } else if (this.level === AppExceptionLevel.Internal) {
+      return {
+        message: exception.message,
+        code: exception.name,
+        params: { stack: exception.stack },
+      };
     }
 
-    switch (this.level) {
-      case AppExceptionLevel.External:
-        if (exception.level === AppExceptionLevel.Internal) {
-          return this.exportAppException(new AppInternalException());
-        }
-    }
-
-    return {
-      code: `${exception.scope}/${exception.code}`,
-      message: exception.message,
-      params: exception.params ? exception.params : {},
-      cause: exception.cause
-        ? this.exportAppException(exception.cause)
-        : undefined,
-    };
+    return this.exportAppException(new AppInternalException());
   }
 
   export(): AppExceptionExport {

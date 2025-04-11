@@ -4,7 +4,7 @@ import { AppExceptionLevel } from '../enums/AppException.level';
 export class AppValidationException extends AppException<
   Record<string, unknown>
 > {
-  constructor(errors: Error[]) {
+  constructor(errors: unknown[]) {
     super({
       scope: 'Validation',
       code: 'failed',
