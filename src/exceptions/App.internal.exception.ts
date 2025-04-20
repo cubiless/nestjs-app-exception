@@ -8,7 +8,7 @@ export class AppInternalException extends AppException<
     super({
       scope: 'App',
       code: 'Internal',
-      level: AppExceptionLevel.External,
+      level: AppExceptionLevel.Internal,
       message: 'Internal Exception',
       cause: cause,
     });
